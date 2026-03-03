@@ -1,19 +1,68 @@
-public class OOPSBannerApp {
+import java.util.HashMap;
+import java.util.Map;
+
+public class BannerAppUC8 {
+
+    private static Map<Character, String[]> buildCharacterMap() {
+
+        Map<Character, String[]> patternMap = new HashMap<>();
+
+        patternMap.put('O', new String[]{
+                " *** ",
+                "*   *",
+                "*   *",
+                "*   *",
+                "*   *",
+                "*   *",
+                " *** "
+        });
+
+        patternMap.put('P', new String[]{
+                "**** ",
+                "*   *",
+                "*   *",
+                "**** ",
+                "*    ",
+                "*    ",
+                "*    "
+        });
+
+        patternMap.put('S', new String[]{
+                " ****",
+                "*    ",
+                "*    ",
+                " *** ",
+                "    *",
+                "    *",
+                "**** "
+        });
+
+        return patternMap;
+    }
+
+    private static void renderBanner(String message, Map<Character, String[]> patternMap) {
+
+        for (int row = 0; row < 7; row++) {
+
+            StringBuilder line = new StringBuilder();
+
+            for (char c : message.toCharArray()) {
+
+                String[] pattern = patternMap.get(c);
+
+                if (pattern != null) {
+                    line.append(pattern[row]).append("  ");
+                }
+            }
+
+            System.out.println(line.toString());
+        }
+    }
 
     public static void main(String[] args) {
 
-        String[] lines = new String[7];
+        Map<Character, String[]> patternMap = buildCharacterMap();
 
-        lines[0] = " *****   *****   *****   *****  ";
-        lines[1] = "*     * *     * *     * *     * ";
-        lines[2] = "*     * *     * *     * *       ";
-        lines[3] = "*     * *     * *****   *****   ";
-        lines[4] = "*     * *     * *            *  ";
-        lines[5] = "*     * *     * *            *  ";
-        lines[6] = " *****   *****   *       *****   ";
-
-        for (String line : lines) {
-            System.out.println(line);
-        }
+        renderBanner("OOPS", patternMap);
     }
 }
